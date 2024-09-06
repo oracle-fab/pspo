@@ -15,6 +15,14 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     overflow: 'hidden',
   },
+  timer: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: '20px',
+    color: '#e74c3c', // Red color for urgency
+  },
+  
   title: {
     fontSize: '32px',
     fontWeight: 'bold',
@@ -93,6 +101,8 @@ const styles = {
   },
 };
 
+
+
 const PSPOQuiz = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState(Array(questions.length).fill([]));
@@ -100,8 +110,10 @@ const PSPOQuiz = ({ questions }) => {
   const [hoveredOption, setHoveredOption] = useState(null);
   const [hoveredButton, setHoveredButton] = useState(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes in seconds
 
   const containerRef = useRef(null);
+  const timerRef = useRef(null);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -110,7 +122,27 @@ const PSPOQuiz = ({ questions }) => {
         height: containerRef.current.offsetHeight,
       });
     }
+
+    // Start the timer
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timerRef.current);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(timerRef.current);
   }, []);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   const handleAnswer = (index) => {
     const newAnswers = [...answers];
@@ -154,6 +186,7 @@ const PSPOQuiz = ({ questions }) => {
     <div style={styles.quizContainer} ref={containerRef}>
       <Snake width={containerSize.width} height={containerSize.height} />
       <h1 style={styles.title}>PSPO Mock Exam</h1>
+      <div style={styles.timer}>Time Remaining: {formatTime(timeLeft)}</div>
       <div style={styles.progress}>
         <div style={{...styles.progressBar, width: `${((currentQuestion + 1) / questions.length) * 100}%`}} />
       </div>

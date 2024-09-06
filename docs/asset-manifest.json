@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pspo/static/css/main.e6c13ad2.css",
+    "main.js": "/pspo/static/js/main.8f98fd2d.js",
+    "static/js/453.90e9024d.chunk.js": "/pspo/static/js/453.90e9024d.chunk.js",
+    "index.html": "/pspo/index.html",
+    "main.e6c13ad2.css.map": "/pspo/static/css/main.e6c13ad2.css.map",
+    "main.8f98fd2d.js.map": "/pspo/static/js/main.8f98fd2d.js.map",
+    "453.90e9024d.chunk.js.map": "/pspo/static/js/453.90e9024d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.8f98fd2d.js"
+  ]
+}
