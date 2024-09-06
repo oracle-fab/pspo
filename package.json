@@ -1,7 +1,7 @@
 {
   "name": "pspo",
   "version": "0.1.0",
-  "homepage": "https://github.com/oracle-fab/pspo/",
+  "homepage": "https://oracle-fab.github.io/pspo/",
 
   "private": true,
   "dependencies": {
